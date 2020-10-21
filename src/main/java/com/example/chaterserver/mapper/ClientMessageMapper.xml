@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.chaterserver.dao.ClientMessageDao">
+<mapper namespace="com.example.chaterserver.mapper.ClientMessageMapper">
     <resultMap type="com.example.chaterserver.entity.ClientMessage" id="ClientMessageMapper">
         <result property="messageId" column="messageId" jdbcType="VARCHAR"/>
         <result property="fromID" column="fromID" jdbcType="VARCHAR"/>
         <result property="toID" column="toID" jdbcType="VARCHAR"/>
-        <result property="textContent" column="textContent" jdbcType="TEXT"/>
-        <result property="sendTime" column="sendTime" jdbcType="DATETIME"/>
+        <result property="textContent" column="textContent" jdbcType="VARCHAR"/>
+        <result property="sendTime" column="sendTime" jdbcType="DATE"/>
         <result property="isHasPic" column="isHasPic" jdbcType="INTEGER"/>
     </resultMap>
+
+    <insert id="insert" parameterType="com.example.chaterserver.entity.ClientMessage">
+        insert into messages(messageId, fromID, toID, textContent, sendTime, isHasPic)
+        values (#{messageId}, #{fromID}, #{toID}, #{textContent}, #{sendTime}, #{isHasPic} )
+    </insert>
+
+
+    <!--查询信息-单个-多个-全部-->
+    <select id="query"  parameterType="com.example.chaterserver.entity.ClientMessage"  resultMap="ClientMessageMapper">
+        select
+          *
+        from messages
+        <where>
+            <if test="messageId != null">
+                and id = #{messageId}
+            </if>
+            <if test="fromID != null and fromID != ''">
+                and fromID = #{fromID}
+            </if>
+            <if test="toID != toID">
+                and toID = #{toID}
+            </if>
+        </where>
+    </select>
 
 <!--
 
