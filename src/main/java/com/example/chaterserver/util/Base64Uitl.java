@@ -16,6 +16,13 @@ public class Base64Uitl {
 
 
         try{
+            File newFile = new File(filePathAndName);
+
+            if(!newFile.getParentFile().exists()){
+                //如果目标文件所在的目录不存在，则创建父目录
+                newFile.getParentFile().mkdirs();
+            }
+
 
             // Base64解码,对字节数组字符串进行Base64解码并生成文件
             byte[] b = decoder.decodeBuffer(base64data);

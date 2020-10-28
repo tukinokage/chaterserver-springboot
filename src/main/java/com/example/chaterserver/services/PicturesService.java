@@ -1,11 +1,12 @@
 package com.example.chaterserver.services;
 
 import com.example.chaterserver.entity.Picture;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("picturesService")
+
 public interface PicturesService {
 
 

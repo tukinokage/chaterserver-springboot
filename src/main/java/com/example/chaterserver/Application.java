@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.MultipartConfigElement;
 
+
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
-@MapperScan("com.example.chaterserver.mapper")
 public class Application {
 
     public static void main(String[] args) {
@@ -23,14 +23,14 @@ public class Application {
 
     }
 
-    @Value("${file.root.path}")
-    private String uploadFolder;
+   /* @Value("${file.root.path}")
+    private String uploadFolder;*/
 
-    @Bean
+  /*  @Bean
     MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory();
         factory.setLocation(uploadFolder);
         return factory.createMultipartConfig();
-    }
+    }*/
 
 }

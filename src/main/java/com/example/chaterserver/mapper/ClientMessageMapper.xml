@@ -23,7 +23,7 @@
         from messages
         <where>
             <if test="messageId != null">
-                and id = #{messageId}
+                and messageId = #{messageId}
             </if>
             <if test="fromID != null and fromID != ''">
                 and fromID = #{fromID}

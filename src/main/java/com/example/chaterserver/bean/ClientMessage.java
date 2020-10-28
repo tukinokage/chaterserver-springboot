@@ -3,6 +3,9 @@ package com.example.chaterserver.bean;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ *
+ */
 public class ClientMessage implements Serializable {
 
     private String messageId;
@@ -10,7 +13,6 @@ public class ClientMessage implements Serializable {
     private String toID;
     private String textContent;
     private String sendTime;
-    private List<String> picQueue;
 
     private int isHasPic;
 
@@ -28,9 +30,6 @@ public class ClientMessage implements Serializable {
     public String getMessageId() {
         return messageId;
     }
-    public void setPicQueue(List<String> picQueue) {
-        this.picQueue = picQueue;
-    }
 
     public void setSendTime(String sendTime) {
         this.sendTime = sendTime;
@@ -42,10 +41,6 @@ public class ClientMessage implements Serializable {
 
     public void setHasPic(int isHasPic) {
         this.isHasPic = isHasPic;
-    }
-
-    public List<String> getPicQueue() {
-        return picQueue;
     }
 
     public String getTextContent() {

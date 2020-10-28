@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Component
 @Service("chatMessageService")
 public class ChatMessageServiceImpl implements ChatMessageService{
@@ -26,4 +28,11 @@ public class ChatMessageServiceImpl implements ChatMessageService{
            // System.out.println(clientMessage.getTextContent());
                 return 1;
         }
+
+    @Override
+    public List<ClientMessage> query(ClientMessage message) {
+        return clientMessageMapper.query(message);
+    }
+
+
 }

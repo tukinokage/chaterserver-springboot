@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.chaterserver.entity.ClientMessage;
 import com.example.chaterserver.services.ChatMessageService;
-import com.example.chaterserver.typeenum.MessageTypeEnum;
+import com.example.chaterserver.enums.typeenum.MessageTypeEnum;
 import com.example.chaterserver.util.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,9 +23,9 @@ public class WebSocketFilter {
     private static AtomicInteger onlineCount = new AtomicInteger(0);
 
     //concurrent包的线程安全Set，用来存放每个客户端对应的WebSocketServer对象。
-    private static ConcurrentHashMap<String, Session> sessionPools = new ConcurrentHashMap<>();
+    public static ConcurrentHashMap<String, Session> sessionPools = new ConcurrentHashMap<>();
 
-    private static ConcurrentHashMap<String, ChatMessageService> daoServicePools = new ConcurrentHashMap<>();
+    //private static ConcurrentHashMap<String, ChatMessageService> daoServicePools = new ConcurrentHashMap<>();
 
     //websocket运行时是多个实例，spring容器是单例，只注入一次，故采用静态注入
     static ChatMessageService chatMessageService;

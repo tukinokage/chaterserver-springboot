@@ -1,11 +1,12 @@
-package com.example.chaterserver.typeenum;
+package com.example.chaterserver.enums.typeenum;
 
 //默认第一个枚举常量的值为0
 public enum  MessageTypeEnum {
     CHAT_MESSAGE(0),
     HEARTBEAT_PACKAGE(1),
     NOTIFICATION(3),
-    ERROR_MESSAGE(4);
+    ERROR_MESSAGE(4),
+    DOWNLOAD_MESSAGE(5);
 
     //自定义成员的数值必须加入\\
     public int getTypeNum() {

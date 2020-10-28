@@ -4,6 +4,16 @@ package com.example.chaterserver.entity;
 import java.io.Serializable;
 
 public class Picture implements Serializable {
+    private String picId;
+
+    private String sendId;
+
+    private String messageId;
+
+    private String recId;
+
+    private String dateTime;
+
     public String getPicId() {
         return picId;
     }
@@ -35,13 +45,12 @@ public class Picture implements Serializable {
     public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
     }
+    public String getMessageId() {
+        return messageId;
+    }
 
-    private String picId;
-
-    private String sendId;
-
-    private String recId;
-
-    private String dateTime;
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
+    }
 
 }
