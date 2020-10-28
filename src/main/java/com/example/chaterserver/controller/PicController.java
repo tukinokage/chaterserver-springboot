@@ -88,7 +88,6 @@ public class PicController {
     @ResponseBody
     public String download(@RequestParam("token") String token, @RequestParam("downloadMsg") String downloadMsg) throws IOException {
             JSONObject responseJson = JSONObject.parseObject(downloadMsg);
-
             /*
              *
              * 此处匹配token
