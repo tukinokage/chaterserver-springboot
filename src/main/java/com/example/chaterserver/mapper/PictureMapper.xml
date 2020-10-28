@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.chaterserver.mapper.PictureMapper">
+    <resultMap type="com.example.chaterserver.entity.Picture" id="PictureMapper">
+        <result property="picId" column="picId" jdbcType="VARCHAR"/>
+        <result property="messageId" column="messageId" jdbcType="VARCHAR"/>
+        <result property="sendId" column="sendId" jdbcType="VARCHAR"/>
+        <result property="recId" column="recId" jdbcType="VARCHAR"/>
+        <result property="dateTime" column="dateTime" jdbcType="DATE"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.example.chaterserver.entity.Picture">
+        insert into picture(picId,messageId, sendId, recId, dateTime)
+        values (#{picId}, #{messageId}, #{sendId}, #{recId}, #{dateTime} )
+    </insert>
+
+
+    <!--查询信息-单个-多个-全部-->
+    <select id="query"  parameterType="com.example.chaterserver.entity.Picture"  resultMap="PictureMapper">
+        select
+          *
+        from picture
+        <where>
+            <if test="messageId != null">
+                and messageId = #{messageId}
+            </if>
+            <if test="picId != null and picId != ''">
+                and picId = #{picId}
+            </if>
+            <if test="sendId != sendId">
+                and sendId = #{sendId}
+            </if>
+        </where>
+    </select>
+
+<!--
+
+    &lt;!&ndash;新增所有列&ndash;&gt;
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into mybatis.student(name, age)
+        values (#{name}, #{age})
+    </insert>
+
+    &lt;!&ndash;通过主键修改数据&ndash;&gt;
+    <update id="update">
+        update mybatis.student
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+-->
+
+
+</mapper>
