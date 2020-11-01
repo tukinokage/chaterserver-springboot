@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.chaterserver.app.WebSocketFilter;
 import com.example.chaterserver.bean.DownloadMessage;
 import com.example.chaterserver.entity.Picture;
+import com.example.chaterserver.enums.typeenum.FileTypeEnum;
 import com.example.chaterserver.services.PicturesService;
 import com.example.chaterserver.enums.typeenum.MessageTypeEnum;
 import com.example.chaterserver.util.Base64Uitl;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.attribute.FileAttribute;
 
 @Controller
 @RequestMapping("/pic")
@@ -67,6 +69,7 @@ public class PicController {
             downloadMessage.setFileName(picInfo.getPicId() + ".jpg");
             downloadMessage.setFromId(picInfo.getSendId());
             downloadMessage.setToId(picInfo.getRecId());
+            downloadMessage.setFileType(String.valueOf(FileTypeEnum.CHAT_PICTURE.getTypeNum()));
             JSONObject newJsonObject = (JSONObject) JSON.toJSON(downloadMessage);
             newJsonObject.put("MessageType", String.valueOf(MessageTypeEnum.DOWNLOAD_MESSAGE.getTypeNum()));
 
@@ -86,32 +89,33 @@ public class PicController {
 
     @RequestMapping(value = "/download", method = RequestMethod.POST )
     @ResponseBody
-    public String download(@RequestParam("token") String token, @RequestParam("downloadMsg") String downloadMsg) throws IOException {
-            JSONObject responseJson = JSONObject.parseObject(downloadMsg);
+    public String download(@RequestBody String json) throws IOException {
+            JSONObject responseJson = JSONObject.parseObject(json);
+            String downloadMsg = responseJson.getString("downloadMsg");
             /*
              *
              * 此处匹配token
              *
              * */
 
-            if(downloadMsg.equals("{}") || downloadMsg.equals("")){
+            if(responseJson.isEmpty()){
                 responseJson.put("errorMsg", "服务器无接受到下载信息");
                 return responseJson.toJSONString();
             }
 
             try {
 
-                Picture picture = JSONObject.parseObject(downloadMsg, Picture.class);
+                DownloadMessage downloadMessage = JSONObject.parseObject(downloadMsg, DownloadMessage.class);
                 String dataStr = Base64Uitl.GetImageStr(FilePath.IMG_PATH.CHAT_IMG_PATH
                         + "/"
-                        + picture.getPicId()
-                        +".jpg");
+                        + downloadMessage.getFileName());
 
                 responseJson.put("errorMsg", "0");
                 responseJson.put("file", dataStr);
             } catch (Exception e) {
-                responseJson.put("errorMsg", "图片下载出错");
+                responseJson.put("errorMsg", "下载出错");
             }finally {
+                System.out.println(responseJson.toJSONString());
                 return responseJson.toJSONString();
             }
 

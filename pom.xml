@@ -89,6 +89,9 @@
             <artifactId>spring-boot-starter-redis</artifactId>
             <version>1.4.1.RELEASE</version>
         </dependency>
+
+
+
     </dependencies>
 
     <build>
