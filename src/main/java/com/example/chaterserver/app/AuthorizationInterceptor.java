@@ -1,21 +1,28 @@
 package com.example.chaterserver.app;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.chaterserver.annotations.AuthToken;
 import com.example.chaterserver.redisCache.RedisUtil;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.messaging.handler.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.lang.reflect.Method;
 
 
 
 public class AuthorizationInterceptor implements HandlerInterceptor {
+
+    private final static long TOKEN_EXPIRE_TIME = 60 * 60 * 24;
+
 
     @Autowired
     RedisUtil redisUtil;
@@ -56,20 +63,20 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
                 log.info("Get username from Redis is {}", username);
             }
             if (username != null && !username.trim().equals("")) {
-                Long tokeBirthTime = Long.valueOf((String) redisUtil.get(token + username));
+               /* Long tokeBirthTime = Long.valueOf((String) redisUtil.get(token + username));
                 log.info("token Birth time is: {}", tokeBirthTime);
-                Long diff = System.currentTimeMillis() - tokeBirthTime;
-                log.info("token is exist : {} ms", diff);
-                if (diff > ConstantKit.TOKEN_RESET_TIME) {
-                    redisUtil.expire(username, ConstantKit.TOKEN_EXPIRE_TIME);
-                    redisUtil.expire(token, ConstantKit.TOKEN_EXPIRE_TIME);
+                Long diff = System.currentTimeMillis() - tokeBirthTime;*/
+                //log.info("token is exist : {} ms", diff);
+               // if (diff > TOKEN_RESET_TIME) {
+                    redisUtil.expire(username, TOKEN_EXPIRE_TIME);
+                    redisUtil.expire(token, TOKEN_EXPIRE_TIME);
                     log.info("Reset expire time success!");
-                    Long newBirthTime = System.currentTimeMillis();
-                    redisUtil.set(token + username, newBirthTime.toString());
-                }
+                   // Long newBirthTime = System.currentTimeMillis();
+                    //redisUtil.set(token + username, newBirthTime.toString());
+              //  }
 
                 //用完关闭
-                redisUtil.close();
+              //  redisUtil.close();
                 request.setAttribute(REQUEST_CURRENT_KEY, username);
                 return true;
             } else {
