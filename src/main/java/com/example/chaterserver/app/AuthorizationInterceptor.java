@@ -21,7 +21,8 @@ import java.lang.reflect.Method;
 
 public class AuthorizationInterceptor implements HandlerInterceptor {
 
-    private final static long TOKEN_EXPIRE_TIME = 60 * 60 * 24;
+    //token存活时间
+    public final static long TOKEN_EXPIRE_TIME = 60 * 60 * 24;
 
 
     @Autowired
@@ -30,7 +31,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 
     private static final Logger log = LoggerFactory.getLogger(AuthorizationInterceptor.class);
 
-    //存放鉴权信息的Header名称，默认是Authorization
+    //存放鉴权信息的Header名称，默认是Authorization检查该字段
     private String httpHeaderName = "Authorization";
 
 

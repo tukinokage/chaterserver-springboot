@@ -37,7 +37,6 @@ public class User implements Serializable {
         this.userId = userId;
     }
 
-
     private void setHeadImg(String headImg_url) {
         this.headImg_url = headImg_url;
     }
