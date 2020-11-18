@@ -10,6 +10,7 @@ public class User implements Serializable {
     private String headImg_url;
     private String password;
 
+
     public String getPassword() {
         return password;
     }

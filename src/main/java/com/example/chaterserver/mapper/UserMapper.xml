@@ -41,7 +41,7 @@
             <if test="userName != null">
                 and userName = #{userName}
             </if>
-            <if test="userId != null and userId != ''">
+            <if test="userId != null ">
                 and userId = #{userId}
             </if>
             <if test="password != password">
@@ -50,14 +50,9 @@
         </where>
     </select>
 
+    <!-- useGeneratedKeys="true"生成主键  keyProperty="id"是Java对象的属性名id -->
+    
 <!--
-
-    &lt;!&ndash;新增所有列&ndash;&gt;
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into mybatis.student(name, age)
-        values (#{name}, #{age})
-    </insert>
-
     &lt;!&ndash;通过主键修改数据&ndash;&gt;
     <update id="update">
         update mybatis.student
