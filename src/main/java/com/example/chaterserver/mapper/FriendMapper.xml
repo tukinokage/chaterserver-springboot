@@ -5,18 +5,24 @@
         <result property="userId" column="userId" jdbcType="VARCHAR"/>
         <result property="userName" column="userName" jdbcType="VARCHAR"/>
         <result property="headImg_url" column="headImg_url" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.example.chaterserver.entity.Friendcontact">
+    <resultMap id="FriendContactMapper" type="com.example.chaterserver.entity.FriendContact">
+        <result property="userId" column="userId" jdbcType="VARCHAR"/>
+        <result property="friendId" column="friendId" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <insert id="insert" parameterType="com.example.chaterserver.entity.FriendContact">
         insert into friendcontact
-        values ( #{userId},  #{firendId} )
+        values ( #{userId},  #{friendId} )
     </insert>
 
     <!--查询信息-单个-多个-全部-->
     <select id="find"  parameterType="com.example.chaterserver.entity.User"  resultMap="UserMapper">
         select
-          userName, userId, headImg_url, sex, email
-        from user
+          *
+        from friendcontact
         <where>
             <if test="userName != null">
                 and userName like '%#{userName}%'
@@ -27,18 +33,17 @@
         </where>
     </select>
 
-    <select id="selectContact" parameterType="com.example.chaterserver.entity.User" >
-
+    <select id="selectContact" parameterType="com.example.chaterserver.entity.User" resultMap="FriendContactMapper">
     select * from
     friendcontact where  userId = #{userId}
 
     </select>
 
 
-<delete id="delete" parameterType="com.example.chaterserver.entity.Friendcontact">
+    <delete id="delete" parameterType="com.example.chaterserver.entity.FriendContact">
 
-    delete from friendcontact where userId = #{userId} and friendId = #{friendId}
-</delete>
+        delete from friendcontact where userId = #{userId} and friendId = #{friendId}
+    </delete>
     <!-- useGeneratedKeys="true"生成主键  keyProperty="id"是Java对象的属性名id -->
     
 <!--

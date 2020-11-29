@@ -1,15 +1,20 @@
 package com.example.chaterserver.entity;
 
-public class Friendcontact {
+import java.io.Serializable;
+
+public class FriendContact implements Serializable {
 
     String userId;
+
+
+
     String friendId;
 
-    public Friendcontact(){
+    public FriendContact(){
 
     }
 
-    public Friendcontact(String userId, String friendId) {
+    public FriendContact(String userId, String friendId) {
         this.userId = userId;
         this.friendId = friendId;
     }
@@ -22,8 +27,6 @@ public class Friendcontact {
         this.userId = userId;
     }
 
-
-
     public String getFriendId() {
         return friendId;
     }
@@ -31,6 +34,5 @@ public class Friendcontact {
     public void setFriendId(String friendId) {
         this.friendId = friendId;
     }
-
 
 }

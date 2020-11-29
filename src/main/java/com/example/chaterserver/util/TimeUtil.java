@@ -12,4 +12,13 @@ public class TimeUtil {
 
         return time;
     }
+
+    public static String getDateTimeNum(){
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyMMddHHmmss");
+
+        String time = formatter.format(date);
+
+        return time;
+    }
 }
